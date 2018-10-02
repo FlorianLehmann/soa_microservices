@@ -2,7 +2,7 @@ package microservices;
 
 import javax.ws.rs.Path;
 
-@Path("/rest/calculator")
+@Path("/rest/validation")
 public class ValidationRESTImpl implements ValidationREST {
 
     public String getETA(int productId, String address) {

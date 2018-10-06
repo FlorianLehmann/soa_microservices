@@ -1,18 +1,26 @@
 package microservices;
 
+import model.Delivery;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Path("/rest/Deliveries")
+@Path("/rest/deliveries")
 public class DeliveriesRESTImpl implements DeliveriesREST {
 
     @PersistenceContext(unitName="deliveries")
     private EntityManager entityManager;
 
     @Override
-    public List<Integer> getDeliveries(int deliveryManId) {
-        return null;
+    public List<Delivery> getDeliveries(int deliveryManId) {
+        ArrayList a = new ArrayList<>();
+        a.add(new Delivery(0, 1 , "adresse"));
+        return a;
     }
 
     @Override

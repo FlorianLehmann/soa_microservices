@@ -1,5 +1,8 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -10,9 +13,10 @@ public class Delivery {
     private int commandId;
     private String addressClient;
 
-    public Delivery(int deliveryManId, int commandId) {
+    public Delivery(int deliveryManId, int commandId, String addressClient) {
         this.deliveryManId = deliveryManId;
         this.commandId = commandId;
+        this.addressClient = addressClient;
     }
 
     public Delivery() {

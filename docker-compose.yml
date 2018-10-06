@@ -21,4 +21,16 @@ services:
     ports:
       - 8081:8080
 
+  deliveries:
+    build: ./deliveries
+    container_name: deliveries
+    ports:
+      - 8082:8080
+    depends_on:
+      - postgresql-deliveries
 
+  postgresql-deliveries:
+    build: ./deliveries/src/main/resource/postgresql-deliveries
+    container_name: postgresql-deliveries
+    ports:
+      - 5433:5432

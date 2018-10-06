@@ -20,7 +20,7 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
     }
 
     @Override
-    public String validateDelivery(int commandId, int deliveryManId) {
+    public String validateDelivery(int commandId, int deliveryManId, String addressClient) {
         return null;
     }
 }

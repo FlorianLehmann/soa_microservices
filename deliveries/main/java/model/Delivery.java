@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Delivery {
     private int deliveryManId;
     private int commandId;
+    private String addressClient;
 
     public Delivery(int deliveryManId, int commandId) {
         this.deliveryManId = deliveryManId;
@@ -15,7 +16,11 @@ public class Delivery {
         return deliveryManId;
     }
 
-    public void setDeliveryManId(int deliveryManId) {
-        this.deliveryManId = deliveryManId;
+    public int getCommandId() {
+        return commandId;
+    }
+
+    public String getAddressClient() {
+        return addressClient;
     }
 }

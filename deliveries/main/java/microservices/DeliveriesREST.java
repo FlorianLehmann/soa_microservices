@@ -15,7 +15,7 @@ public interface DeliveriesREST {
 
     @Path("/deliveredproduct")
     @PUT
-    public String validateDelivery( @QueryParam("commandId") int commandId, @QueryParam("deliveryManId") int deliveryManId);
+    public String validateDelivery( @QueryParam("commandId") int commandId, @QueryParam("deliveryManId") int deliveryManId, @QueryParam("addressClient") String addressClient);
 
 }
 

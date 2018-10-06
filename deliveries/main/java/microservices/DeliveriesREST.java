@@ -11,7 +11,7 @@ public interface DeliveriesREST {
 
     @Path("/deliveryman/{id}")
     @GET
-    public List<Integer> /*list of CommandId*/ getDeliveries(@PathParam("id") int deliveryManId);
+    public List<Delivery> /*list of CommandId*/ getDeliveries(@PathParam("id") int deliveryManId);
 
     @Path("/deliveredproduct")
     @PUT

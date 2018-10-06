@@ -12,6 +12,10 @@ public class Delivery {
         this.commandId = commandId;
     }
 
+    public Delivery() {
+
+    }
+
     public int getDeliveryManId() {
         return deliveryManId;
     }

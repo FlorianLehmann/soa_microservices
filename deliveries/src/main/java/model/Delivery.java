@@ -2,8 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+@Entity
+@Table(name="deliveries")
 public class Delivery {
     private int deliveryManId;
+    @Id
     private int commandId;
     private String addressClient;
 

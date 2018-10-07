@@ -1,6 +1,7 @@
 package microservices;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.Delivery;
 import model.ETA;
 import model.Order;
 
@@ -24,11 +25,11 @@ public class ValidationRESTImpl implements ValidationREST {
             e.printStackTrace();
         }
 
-        /*try {
-            client.sendPost(objectMapper.writeValueAsString(new Order(productId, 0)),"http://orders:8080/orders/rest/orders/neworder");
+        try {
+            client.sendPost(objectMapper.writeValueAsString(new Delivery(customerAddress)),"http://deliveries:8080/deliveries/rest/deliveries/adddelivery");
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 

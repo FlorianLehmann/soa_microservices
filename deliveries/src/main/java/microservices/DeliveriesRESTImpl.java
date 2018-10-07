@@ -27,4 +27,10 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
     public String validateDelivery(int commandId, int deliveryManId, String addressClient) {
         return null;
     }
+
+    @Override
+    public void addDelivery(int commandId, String addressClient) {
+        Delivery delivery = new Delivery(0, commandId, addressClient);
+        entityManager.persist(delivery);
+    }
 }

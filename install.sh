@@ -19,3 +19,8 @@ cd ..
 cd orders
 mvn clean package
 cd ..
+
+# acceptation
+cd acceptation
+mvn clean package -DskipTests=true
+cd ..

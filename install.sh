@@ -14,3 +14,8 @@ cd ..
 cd deliveries
 mvn clean package
 cd ..
+
+# orders
+cd orders
+mvn clean package
+cd ..

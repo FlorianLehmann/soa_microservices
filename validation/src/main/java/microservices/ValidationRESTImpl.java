@@ -1,8 +1,11 @@
 package microservices;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.ETA;
+import model.Order;
 
 import javax.ws.rs.Path;
+import java.io.IOException;
 
 @Path("/rest/validation")
 public class ValidationRESTImpl implements ValidationREST {
@@ -11,7 +14,23 @@ public class ValidationRESTImpl implements ValidationREST {
         return new ETA(productId, address);
     }
 
-    public String validateProduct(int productId, String customerName, String customerAddress) {
-        return null;
+    public void validateProduct(int productId, String customerName, String customerAddress) {
+        Client client = new Client();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            client.sendPost(objectMapper.writeValueAsString(new Order(productId, 0)),"http://orders:8080/orders/rest/orders/neworder");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*try {
+            client.sendPost(objectMapper.writeValueAsString(new Order(productId, 0)),"http://orders:8080/orders/rest/orders/neworder");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
     }
+
+
 }

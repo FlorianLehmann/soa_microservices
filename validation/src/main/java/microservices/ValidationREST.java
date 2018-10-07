@@ -13,7 +13,7 @@ public interface ValidationREST {
 
     @Path("/validate/product")
     @POST
-    public String validateProduct( @QueryParam("productId") int productId, @QueryParam("name") String customerName, @QueryParam("address") String customerAddress );
+    public void validateProduct( @QueryParam("productId") int productId, @QueryParam("name") String customerName, @QueryParam("address") String customerAddress );
 
 }
 

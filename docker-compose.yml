@@ -34,3 +34,18 @@ services:
     container_name: postgresql-deliveries
     ports:
       - 5433:5432
+
+  orders:
+    build: ./orders
+    container_name: orders
+    ports:
+      - 8083:8080
+    depends_on:
+      - postgresql-orders
+
+  postgresql-orders:
+    build: ./orders/src/main/resource/postgresql-orders
+    container_name: postgresql-orders
+    ports:
+    - 5434:5432
+

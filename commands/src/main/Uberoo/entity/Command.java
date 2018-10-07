@@ -11,7 +11,7 @@ public class Command {
 
     private String name ;
 
-    private String food_id;
+    private Long food_id;
 
     public Long getId() {
         return id;
@@ -29,11 +29,11 @@ public class Command {
         this.name = name;
     }
 
-    public String getFood_id() {
+    public Long getFood_id() {
         return food_id;
     }
 
-    public void setFood_id(String food_id) {
+    public void setFood_id(Long food_id) {
         this.food_id = food_id;
     }
 }

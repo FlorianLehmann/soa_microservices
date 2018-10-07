@@ -19,7 +19,7 @@ public interface DeliveriesREST {
 
     @Path("/adddelivery")
     @POST
-    public void addDelivery(@QueryParam("commandId") int commandId, @QueryParam("addressClient") String addressClient);
+    public void addDelivery(@QueryParam("addressClient") String addressClient);
 
 }
 

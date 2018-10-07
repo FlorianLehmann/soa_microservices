@@ -1,14 +1,15 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="orders")
 public class Order {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int orderId;
+
     private int productId;
     private int restaurantId;
 
@@ -34,4 +35,13 @@ public class Order {
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
 }

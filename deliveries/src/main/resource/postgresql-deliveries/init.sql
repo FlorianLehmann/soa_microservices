@@ -4,5 +4,9 @@ CREATE TABLE deliveries (
     addressClient varchar(50)
 );
 
-INSERT INTO deliveries VALUES (0, 0, 'rue de');
+CREATE TABLE openjpa_sequence_table (
+  ID integer PRIMARY KEY,
+  SEQUENCE_VALUE bigint
+);
+
 

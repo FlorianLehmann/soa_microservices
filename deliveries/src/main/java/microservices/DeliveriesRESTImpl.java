@@ -18,9 +18,7 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
 
     @Override
     public List<Delivery> getDeliveries(int deliveryManId) {
-        ArrayList a = new ArrayList<>();
-        a.add(new Delivery(0, 1 , "adresse"));
-        return a;
+        return entityManager.createQuery("select o from Delivery o").getResultList();
     }
 
     @Override
@@ -30,7 +28,7 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
 
     @Override
     public void addDelivery(String addressClient) {
-        Delivery delivery = new Delivery(0, 0, addressClient);
+        Delivery delivery = new Delivery(0, addressClient);
         entityManager.persist(delivery);
     }
 }

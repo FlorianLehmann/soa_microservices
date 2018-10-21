@@ -1,6 +1,13 @@
-CREATE TABLE products (
+CREATE TABLE meals (
     id integer PRIMARY KEY,
+    category varchar(50),
+    restaurant varchar(50),
     name varchar(50)
 );
 
-INSERT INTO products VALUES (0, 'ramen soup');
+CREATE TABLE openjpa_sequence_table (
+  ID integer PRIMARY KEY,
+  SEQUENCE_VALUE bigint
+);
+
+INSERT INTO meals VALUES (0, 'soup', 'soup restaurant', 'ramen soup');

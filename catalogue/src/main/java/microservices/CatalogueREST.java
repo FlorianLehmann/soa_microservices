@@ -2,9 +2,11 @@ package microservices;
 
 import model.Meal;
 
+import javax.ejb.Local;
 import javax.ws.rs.*;
 import java.util.List;
 
+@Local
 @Produces({"application/json"})
 public interface CatalogueREST {
 

@@ -19,6 +19,14 @@ services:
     depends_on:
       - postgresql-catalogue
 
+  kitchen:
+    build: ./kitchen
+    container_name: kitchen
+    ports:
+    - 8084:8080
+    depends_on:
+    - kafka-bus
+
   postgresql-catalogue:
     build: ./catalogue/src/main/resource/postgresql-catalogue/
     container_name: postgresql-catalogue

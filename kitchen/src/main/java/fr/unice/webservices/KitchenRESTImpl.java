@@ -1,0 +1,15 @@
+package fr.unice.webservices;
+
+import fr.unice.model.ETA;
+
+import javax.ws.rs.Path;
+
+@Path("rest/kitchen")
+public class KitchenRESTImpl implements KitchenREST {
+
+    @Override
+    public ETA getETA() {
+        return new ETA(45);
+    }
+
+}

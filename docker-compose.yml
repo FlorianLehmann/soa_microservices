@@ -4,12 +4,10 @@ services:
 
   kafka-bus:
     image: spotify/kafka
+    container_name: kafka-bus
     ports:
       - 2181:2181
       - 9092:9092
-    environment:
-       - ADVERTISED_HOST=localhost
-       - ADVERTISED_PORT=9092
 
   catalogue:
     build: ./catalogue

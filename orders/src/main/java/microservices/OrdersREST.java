@@ -1,19 +1,18 @@
 package microservices;
 
-import entity.Order;
-
 import javax.ws.rs.*;
-import java.util.List;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-@Produces({"application/json"})
 public interface OrdersREST {
 
-    @Path("/neworder")
     @POST
-    public void addOrder(@QueryParam("productId") int productId, @QueryParam("restaurantId") int restaurantId);
+    @Path("/new_order")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response newOrder(String message);
 
-    @Path("/restaurants/{restaurantId}/orders")
     @GET
-    public List<Order> getOrders(@PathParam("restaurantId") int restaurantId);
-
+    @Path("/restaurants/{restaurantId}/orders")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response getOrders(@PathParam("restaurantId") int restaurantId);
 }

@@ -9,13 +9,13 @@ services:
       - 2181:2181
       - 9092:9092
 
-  catalogue:
-    build: ./catalogue
-    container_name: catalogue
+  catalog:
+    build: ./catalog
+    container_name: catalog
     ports:
       - 8080:8080
     depends_on:
-      - postgresql-catalogue
+      - postgresql-catalog
 
   kitchen:
     build: ./kitchen
@@ -25,17 +25,11 @@ services:
     depends_on:
     - kafka-bus
 
-  postgresql-catalogue:
-    build: ./catalogue/src/main/resource/postgresql-catalogue/
-    container_name: postgresql-catalogue
+  postgresql-catalog:
+    build: catalog/src/main/resources/postgresql-catalog/
+    container_name: postgresql-catalog
     ports:
       - 5432:5432
-
-  validation:
-    build: ./validation
-    container_name: validation
-    ports:
-      - 8081:8080
 
   deliveries:
     build: ./deliveries
@@ -46,7 +40,7 @@ services:
       - postgresql-deliveries
 
   postgresql-deliveries:
-    build: ./deliveries/src/main/resource/postgresql-deliveries
+    build: deliveries/src/main/resources/postgresql-deliveries
     container_name: postgresql-deliveries
     ports:
       - 5433:5432
@@ -60,7 +54,7 @@ services:
       - postgresql-orders
 
   postgresql-orders:
-    build: ./orders/src/main/resource/postgresql-orders
+    build: ./orders/src/main/resources/postgresql-orders
     container_name: postgresql-orders
     ports:
     - 5434:5432

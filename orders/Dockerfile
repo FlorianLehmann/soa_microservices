@@ -4,9 +4,9 @@ RUN apt-get update \
     && apt-get install -y sudo netcat
 
 ADD target/orders.war /usr/local/tomee/webapps
-ADD src/main/resource/postgresql-42.2.5.jar /usr/local/tomee/lib
-ADD src/main/resource/wait_dependencies.sh ./
-COPY src/main/resource/tomee.xml /usr/local/tomee/conf
+ADD src/main/resources /usr/local/tomee/lib
+ADD src/main/resources ./
+COPY src/main/resources /usr/local/tomee/conf
 
 RUN chmod +x wait_dependencies.sh
 

@@ -3,7 +3,7 @@ FROM tomee:8-jre-7.0.2-plus
 RUN apt-get update \
     && apt-get install -y sudo netcat
 
-ADD target/deliveries.war /usr/local/tomee/webapps
+ADD target/catalog.war /usr/local/tomee/webapps
 ADD src/main/resources /usr/local/tomee/lib
 ADD src/main/resources ./
 COPY src/main/resources /usr/local/tomee/conf

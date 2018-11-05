@@ -3,7 +3,7 @@ MAINTAINER haroun3amri@ieee.org
 
 ENV POSTGRES_USER root
 ENV POSTGRES_PASSWORD root
-ENV POSTGRES_DB catalogue
+ENV POSTGRES_DB catalog
 
 ADD ./init.sql /docker-entrypoint-initdb.d/
 

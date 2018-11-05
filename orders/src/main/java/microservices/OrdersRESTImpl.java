@@ -6,12 +6,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.json.JSONObject;
 
-import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,9 +28,16 @@ public class OrdersRESTImpl implements OrdersREST {
     private final Producer<String, String> producer = new KafkaProducer<>(producerProps, new StringSerializer(), new StringSerializer());
     private final Consumer<String, String> consumer = new KafkaConsumer<>(consumerProps, new StringDeserializer(), new StringDeserializer());
 
+
+    @PersistenceContext(unitName = "orders")
+    private EntityManager entityManager;
+
     public OrdersRESTImpl() {
         consumer.subscribe(Collections.singletonList("new-order"));
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {producer.close(); consumer.close();}));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            producer.close();
+            consumer.close();
+        }));
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -41,30 +46,24 @@ public class OrdersRESTImpl implements OrdersREST {
         }, 1000, 1000);
     }
 
-    @PersistenceContext(unitName = "orders")
-    private EntityManager entityManager;
-
     @Override
     public Response newOrder(String message) {
         JSONObject json = new JSONObject(message);
         System.out.println("New Order : " + json.toString());
-        producer.send(new ProducerRecord<>("new-order", json.toString()));
         return Response.ok().build();
     }
 
-    @Schedule(second = "1")
     public void addOrder() {
         ConsumerRecords<String, String> records = consumer.poll(1000);
         for (ConsumerRecord<String, String> record : records) {
-            System.out.println("Save Order : " + record.toString());
+            // TODO: DB call
         }
-
     }
-
 
     @Override
     public Response getOrders(int restaurantId) {
-        return Response.ok(entityManager.createQuery("select o from Order o").getResultList()).build();
+        // TODO: DB call
+        return Response.ok().build();
     }
 
     static {

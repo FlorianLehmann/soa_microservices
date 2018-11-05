@@ -8,7 +8,7 @@ import java.util.List;
 
 @Local
 @Produces({"application/json"})
-public interface CatalogueREST {
+public interface CatalogREST {
 
     @Path("/meals")
     @GET

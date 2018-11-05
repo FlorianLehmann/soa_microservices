@@ -4,12 +4,10 @@ services:
 
   kafka-bus:
     image: spotify/kafka
+    container_name: kafka-bus
     ports:
       - 2181:2181
       - 9092:9092
-    environment:
-       - ADVERTISED_HOST=localhost
-       - ADVERTISED_PORT=9092
 
   catalogue:
     build: ./catalogue
@@ -18,6 +16,14 @@ services:
       - 8080:8080
     depends_on:
       - postgresql-catalogue
+
+  kitchen:
+    build: ./kitchen
+    container_name: kitchen
+    ports:
+    - 8084:8080
+    depends_on:
+    - kafka-bus
 
   postgresql-catalogue:
     build: ./catalogue/src/main/resource/postgresql-catalogue/

@@ -2,11 +2,13 @@ package microservices;
 
 import model.Meal;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Path;
 import java.util.List;
 
+@Stateless
 @Path("rest/catalog")
 public class CatalogueRESTImpl implements CatalogueREST {
 

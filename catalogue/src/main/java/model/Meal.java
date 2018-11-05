@@ -14,6 +14,12 @@ public class Meal {
     private String restaurant;
     private String name;
 
+    public Meal(String category, String restaurant, String name) {
+        this.category = category;
+        this.restaurant = restaurant;
+        this.name = name;
+    }
+
     public Meal() {
     }
 

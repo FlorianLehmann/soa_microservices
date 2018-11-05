@@ -24,3 +24,6 @@ cd ..
 cd acceptation
 mvn clean package -DskipTests=true
 cd ..
+
+sleep 100
+

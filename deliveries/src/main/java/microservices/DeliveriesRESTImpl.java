@@ -31,4 +31,16 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
         Delivery delivery = new Delivery(0, addressClient);
         entityManager.persist(delivery);
     }
+
+    @Override
+    public void GetDeliverriesNearBy(int deliveryManId , long actualPositionLongitude , long actualPositionLongitude) {
+        // TODO Link with kafka
+        // TODO  create a position varibale in deliveryMan model and order Model to nearest order
+    }
+
+    @Override
+    public void switchDeliveryState(String deliveryState) {
+        // TODO Link with kafka
+        // TODO create a state attibute in order lodel
+    }
 }

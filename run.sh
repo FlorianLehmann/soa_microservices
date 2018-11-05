@@ -1,1 +1,5 @@
-#!/bin/bashcd acceptationmvn testcd ..
+#!/bin/bash
+
+cd acceptation
+mvn test
+cd ..

@@ -10,9 +10,9 @@ import java.util.List;
 
 @Stateless
 @Path("rest/catalog")
-public class CatalogueRESTImpl implements CatalogueREST {
+public class CatalogRESTImpl implements CatalogREST {
 
-    @PersistenceContext(unitName="catalogue")
+    @PersistenceContext(unitName="catalog")
     private EntityManager entityManager;
 
     @Override

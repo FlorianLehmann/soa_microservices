@@ -12,7 +12,7 @@ public interface OrdersREST {
     Response newOrder(String message);
 
     @GET
-    @Path("/restaurants/{restaurantId}/orders")
+    @Path("/restaurants/{restaurant}/orders")
     @Produces(MediaType.APPLICATION_JSON)
-    Response getOrders(@PathParam("restaurantId") int restaurantId);
+    Response getOrders(@PathParam("restaurant") String restaurant);
 }

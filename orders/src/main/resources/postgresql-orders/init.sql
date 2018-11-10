@@ -3,7 +3,8 @@ CREATE TABLE orders (
     name varchar(50),
     restaurant varchar(50),
     product varchar(50),
-    location varchar(21),
+    customerLocation varchar(21),
+    restaurantLocation varchar(21),
     phone varchar(12)
 );
 

@@ -48,14 +48,18 @@ public class OrderRegister implements Register {
     }
 
     @Override
-    public void newOrder(String name, String restaurant, String product, String location, String phone) {
+    public void newOrder(String name, String restaurant, String product, String customerLocation, String restaurantLocation, String phone) {
         Matcher matcher = phonePattern.matcher(phone);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Phone number is not correct : \"" + phone + '\"');
         }
-        matcher = locationPattern.matcher(location);
+        matcher = locationPattern.matcher(customerLocation);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Location is not correct : \"" + location + '\"');
+            throw new IllegalArgumentException("Location is not correct : \"" + customerLocation + '\"');
+        }
+        matcher = locationPattern.matcher(restaurantLocation);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Location is not correct : \"" + restaurantLocation + '\"');
         }
         LOGGER.info("Creating new order: '" + name + "' ordered a '" + product + "' at '" + restaurant + "'");
         producer.send(new ProducerRecord<>("order", new JSONObject()
@@ -64,7 +68,8 @@ public class OrderRegister implements Register {
                         .put("name", name)
                         .put("restaurant", restaurant)
                         .put("product", product)
-                        .put("location", location)
+                        .put("customerLocation", customerLocation)
+                        .put("restaurantLocation", restaurantLocation)
                         .put("phone", phone)).toString()));
     }
 

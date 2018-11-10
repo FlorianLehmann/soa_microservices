@@ -23,7 +23,7 @@ services:
     ports:
     - 8084:8080
     depends_on:
-    - kafka-bus
+    - orders
 
   postgresql-catalog:
     build: catalog/src/main/resources/postgresql-catalog/

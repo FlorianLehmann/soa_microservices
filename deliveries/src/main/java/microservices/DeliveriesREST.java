@@ -28,7 +28,7 @@ public interface DeliveriesREST {
 
     @Path("/deliveries/{id}/{state}")
     @PUT
-    public void updateDeliveryState(@PathParam("id") long deliveriesId,
+    public void updateDeliveryState(@PathParam("id") int deliveriesId,
                                     @PathParam("state") String deliveryState);
 
 

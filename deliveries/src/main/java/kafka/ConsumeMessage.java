@@ -1,6 +1,9 @@
-package bean;
+package kafka;
 
-import entity.Order;
+import bean.DeliveryRegister;
+import model.Address;
+import model.Delivery;
+import model.DeliveryMan;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -20,14 +23,16 @@ import java.util.logging.Logger;
 @Singleton
 @Startup
 public class ConsumeMessage {
-    private final static Logger LOGGER = Logger.getLogger(ConsumeMessage.class.getName());
+
     private static final Properties consumerProps = new Properties();
+
     private final Consumer<String, String> consumer = new KafkaConsumer<>(consumerProps, new StringDeserializer(), new StringDeserializer());
+
     @EJB
-    private Register register;
+    private DeliveryRegister deliveryRegister;
 
     public ConsumeMessage() {
-        consumer.subscribe(Collections.singletonList("order"));
+        consumer.subscribe(Collections.singletonList("kitchen"));
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::close));
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -40,33 +45,35 @@ public class ConsumeMessage {
     private void consume() {
         ConsumerRecords<String, String> records = consumer.poll(1000);
         for (ConsumerRecord<String, String> record : records) {
-            LOGGER.info("consume record : " + record);
             JSONObject jsonObject = new JSONObject(record.value());
             processRecord(jsonObject);
         }
     }
 
     private void processRecord(JSONObject record) {
-        System.out.println("MESSAGE ORDER : " + record);
-
+        System.out.println("MESSAGE DELIEVRY : " + record);
 
         switch (record.getString("event")) {
-            case "new_order":
+            case "ready_to_be_delivered":
                 JSONObject data = record.getJSONObject("data");
-                register.saveOrder(new Order(
-                        data.getString("name"),
-                        data.getString("restaurant"),
-                        data.getString("product"),
-                        data.getString("customerLocation"),
-                        data.getString("restaurantLocation"),
-                        data.getString("phone")));
+
+                String []customerCoordinate = data.getString("customerLocation").split(",");
+                String []restaurantCoordinate = data.getString("restaurantLocation").split(",");
+
+
+                Address customerAddress = new Address(Double.parseDouble(customerCoordinate[0]), Double.parseDouble(customerCoordinate[1]));
+                Address restaurantAddress = new Address(Double.parseDouble(restaurantCoordinate[0]), Double.parseDouble(restaurantCoordinate[1]));
+
+
+                deliveryRegister.addDelivery(new Delivery(restaurantAddress, customerAddress, data.getString("customerName"), null));
+
                 break;
         }
     }
 
     static {
         consumerProps.put("bootstrap.servers", "kafka-bus:9092");
-        consumerProps.put("group.id", "uberoo");
+        consumerProps.put("group.id", "deliveries");
         consumerProps.put("enable.auto.commit", "true");
         consumerProps.put("auto.commit.interval.ms", "1000");
         consumerProps.put("auto.offset.reset", "earliest");

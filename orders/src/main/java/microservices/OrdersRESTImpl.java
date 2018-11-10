@@ -26,9 +26,10 @@ public class OrdersRESTImpl implements OrdersREST {
             String name = json.getString("name");
             String restaurant = json.getString("restaurant");
             String product = json.getString("product");
-            String location = json.getString("location");
+            String customerLocation = json.getString("customerLocation");
+            String restaurantLocation = json.getString("restaurantLocation");
             String phone = json.getString("phone");
-            register.newOrder(name, restaurant, product, location, phone);
+            register.newOrder(name, restaurant, product, customerLocation, restaurantLocation, phone);
         } catch (Exception e) {
             LOGGER.warning(e.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).build();

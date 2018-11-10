@@ -1,11 +1,13 @@
 package microservices;
 
+import bean.DeliveryRegister;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Address;
 import model.Delivery;
 import model.DeliveryMan;
 import model.DistanceDelivery;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,31 +25,16 @@ import java.util.List;
 @Path("/rest/deliveries")
 public class DeliveriesRESTImpl implements DeliveriesREST {
 
-    @PersistenceContext/*(unitName="deliveries")*/
-    private EntityManager entityManager;
+    @EJB
+    private DeliveryRegister deliveryRegister;
 
-    // JSON unordered
     public List<Delivery> getUnassignedDeliveries() {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Delivery> criteria = builder.createQuery(Delivery.class);
-        Root<Delivery> root = criteria.from(Delivery.class);
-
-        criteria.select(root).where(builder.equal(root.get("deliveryMan"), null));
-        TypedQuery<Delivery> query = entityManager.createQuery(criteria);
-
-        return query.getResultList();
+        return deliveryRegister.getUnassignedDeliveries();
     }
 
     @Override
     public List<Delivery> getDeliveries() {
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Delivery> criteria = builder.createQuery(Delivery.class);
-        Root<Delivery> root = criteria.from(Delivery.class);
-
-        criteria.select(root);
-        TypedQuery<Delivery> query = entityManager.createQuery(criteria);
-
-        return query.getResultList();
+        return deliveryRegister.getDeliveries();
     }
 
     @Override
@@ -56,8 +43,7 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
             ObjectMapper objectMapper = new ObjectMapper();
             Delivery delivery = objectMapper.readValue(request, Delivery.class);
 
-            entityManager.persist(delivery);
-            System.out.println(delivery.getId());
+            deliveryRegister.addDelivery(delivery);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,8 +73,8 @@ public class DeliveriesRESTImpl implements DeliveriesREST {
     }
 
     @Override
-    public void updateDeliveryState(long deliveriesId, String deliveryState) {
-
+    public void updateDeliveryState(int deliveriesId, String deliveryState) {
+        deliveryRegister.updateDeliveryState(deliveriesId, deliveryState);
     }
 
 }

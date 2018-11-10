@@ -12,14 +12,16 @@ public class Order {
     private String name;
     private String restaurant;
     private String product;
-    private String location;
+    private String customerLocation;
+    private String restaurantLocation;
     private String phone;
 
-    public Order(String name, String restaurant, String product, String location, String phone) {
+    public Order(String name, String restaurant, String product, String customerLocation, String restaurantLocation, String phone) {
         this.name = name;
         this.restaurant = restaurant;
         this.product = product;
-        this.location = location;
+        this.customerLocation = customerLocation;
+        this.restaurantLocation = restaurantLocation;
         this.phone = phone;
     }
 
@@ -57,12 +59,20 @@ public class Order {
         this.restaurant = restaurant;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCustomerLocation() {
+        return customerLocation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCustomerLocation(String customerLocation) {
+        this.customerLocation = customerLocation;
+    }
+
+    public String getRestaurantLocation() {
+        return restaurantLocation;
+    }
+
+    public void setRestaurantLocation(String restaurantLocation) {
+        this.restaurantLocation = restaurantLocation;
     }
 
     public String getPhone() {
@@ -75,6 +85,14 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{orderId=" + orderId + ", name='" + name + "\', restaurant='" + restaurant + "\', product='" + product + "\', location='" + location + "\', phone='" + phone + "\'}";
+        return "Order{" +
+                "orderId=" + orderId +
+                ", name='" + name + '\'' +
+                ", restaurant='" + restaurant + '\'' +
+                ", product='" + product + '\'' +
+                ", customerLocation='" + customerLocation + '\'' +
+                ", restaurantLocation='" + restaurantLocation + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

@@ -20,9 +20,9 @@ cd orders
 mvn clean package -DskipTests=true
 cd ..
 
-# orders
+# payment
 cd payment
-mvn clean package -DskipTests=true
+# mvn clean package -DskipTests=true
 cd ..
 
 

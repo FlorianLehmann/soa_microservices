@@ -5,11 +5,11 @@ RUN apt-get update \
 
 ADD target/kitchen.war /usr/local/tomee/webapps
 # ADD src/main/resources/postgresql-42.2.5.jar /usr/local/tomee/lib
-# ADD src/main/resources/wait_dependencies.sh ./
+ADD src/main/resources/wait_dependencies.sh ./
 # COPY src/main/resources/tomee.xml /usr/local/tomee/conf
 
-# RUN chmod +x wait_dependencies.sh
+RUN chmod +x wait_dependencies.sh
 
 EXPOSE 8080
 
-# CMD ["./wait_dependencies.sh"]
+CMD ["./wait_dependencies.sh"]

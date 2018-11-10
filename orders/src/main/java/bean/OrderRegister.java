@@ -55,7 +55,7 @@ public class OrderRegister implements Register {
         }
         matcher = locationPattern.matcher(location);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Location is not correct : \"" + phone + '\"');
+            throw new IllegalArgumentException("Location is not correct : \"" + location + '\"');
         }
         LOGGER.info("Creating new order: '" + name + "' ordered a '" + product + "' at '" + restaurant + "'");
         producer.send(new ProducerRecord<>("order", new JSONObject()

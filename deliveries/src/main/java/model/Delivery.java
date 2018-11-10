@@ -4,43 +4,79 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="deliveries")
+/*@Table(name="deliveries")*/
 public class Delivery {
-    private String addressClient;
-    private int deliveryManId;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int commandId;
+    private int id;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="longitude", column = @Column(name = "restaurant_longitude")),
+            @AttributeOverride(name="latitude", column = @Column(name = "restaurant_latitude"))
+    })
+    private Address restaurantAdress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name="longitude", column = @Column(name = "customer_longitude")),
+            @AttributeOverride(name="latitude", column = @Column(name = "customer_latitude"))
+    })
+    private Address customerAddress;
+    private String customerName;
 
 
-    public Delivery(int deliveryManId, int commandId, String addressClient) {
-        this.deliveryManId = deliveryManId;
-        this.commandId = commandId;
-        this.addressClient = addressClient;
-    }
-
-    public Delivery(int deliveryManId, String addressClient) {
-        this.deliveryManId = deliveryManId;
-        this.addressClient = addressClient;
-    }
+    @OneToOne
+    private DeliveryMan deliveryMan;
 
     public Delivery() {
-
     }
 
-    public int getDeliveryManId() {
-        return deliveryManId;
+    public Delivery(Address restaurantAdress, Address customerAddress, String customerName, DeliveryMan deliveryMan) {
+        this.restaurantAdress = restaurantAdress;
+        this.customerAddress = customerAddress;
+        this.deliveryMan = deliveryMan;
+        this.customerName = customerName;
     }
 
-    public int getCommandId() {
-        return commandId;
+    public int getId() {
+        return id;
     }
 
-    public String getAddressClient() {
-        return addressClient;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setAddressClient(String addressClient) {
-        this.addressClient = addressClient;
+    public Address getRestaurantAdress() {
+        return restaurantAdress;
+    }
+
+    public void setRestaurantAdress(Address restaurantAdress) {
+        this.restaurantAdress = restaurantAdress;
+    }
+
+    public Address getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(Address customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public DeliveryMan getDeliveryMan() {
+        return deliveryMan;
+    }
+
+    public void setDeliveryMan(DeliveryMan deliveryMan) {
+        this.deliveryMan = deliveryMan;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

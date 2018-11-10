@@ -76,7 +76,7 @@
         </dependency>
 
 
-        <!-- Dependency to integrate REST clients (order matters for CXF) (provided) -->
+        <!-- Dependency to integrate REST clients (orderPayment matters for CXF) (provided) -->
         <dependency>
             <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-cxf</artifactId>

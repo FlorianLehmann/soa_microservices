@@ -22,7 +22,7 @@ cd ..
 
 # payment
 cd payment
-# mvn clean package -DskipTests=true
+mvn clean package -DskipTests=true
 cd ..
 
 

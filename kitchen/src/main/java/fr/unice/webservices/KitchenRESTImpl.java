@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 public class KitchenRESTImpl implements KitchenREST {
 
     @Override
-    public ETA getETA() {
+    public ETA getETA(String restaurant, String meal) {
         return new ETA(45);
     }
 

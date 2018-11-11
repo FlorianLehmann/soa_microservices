@@ -47,9 +47,6 @@ public class ConsumeMessage {
     }
 
     private void processRecord(JSONObject record) {
-        System.out.println("MESSAGE ORDER : " + record);
-
-
         switch (record.getString("event")) {
             case "new_order":
                 JSONObject data = record.getJSONObject("data");

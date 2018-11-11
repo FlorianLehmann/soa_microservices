@@ -1,9 +1,7 @@
-package kafka;
+package fr.unice.kafka;
 
-import bean.DeliveryRegister;
-import model.Address;
-import model.Delivery;
-import model.DeliveryMan;
+import fr.unice.bean.Pay;
+import fr.unice.entity.OrderPayment;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -24,15 +22,15 @@ import java.util.logging.Logger;
 @Startup
 public class ConsumeMessage {
 
+    private final static Logger LOGGER = Logger.getLogger(ConsumeMessage.class.getName());
     private static final Properties consumerProps = new Properties();
-
     private final Consumer<String, String> consumer = new KafkaConsumer<>(consumerProps, new StringDeserializer(), new StringDeserializer());
 
     @EJB
-    private DeliveryRegister deliveryRegister;
+    private Pay pay;
 
     public ConsumeMessage() {
-        consumer.subscribe(Collections.singletonList("kitchen"));
+        consumer.subscribe(Collections.singletonList("order"));
         Runtime.getRuntime().addShutdownHook(new Thread(consumer::close));
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -45,33 +43,27 @@ public class ConsumeMessage {
     private void consume() {
         ConsumerRecords<String, String> records = consumer.poll(1000);
         for (ConsumerRecord<String, String> record : records) {
+            LOGGER.info("consume record : " + record);
             JSONObject jsonObject = new JSONObject(record.value());
             processRecord(jsonObject);
         }
     }
 
     private void processRecord(JSONObject record) {
+        System.out.println("MESSAGE ORDER : " + record);
+
+
         switch (record.getString("event")) {
-            case "ready_to_be_delivered":
+            case "saving_order":
                 JSONObject data = record.getJSONObject("data");
-
-                String []customerCoordinate = data.getString("customerLocation").split(",");
-                String []restaurantCoordinate = data.getString("restaurantLocation").split(",");
-
-
-                Address customerAddress = new Address(Double.parseDouble(customerCoordinate[0]), Double.parseDouble(customerCoordinate[1]));
-                Address restaurantAddress = new Address(Double.parseDouble(restaurantCoordinate[0]), Double.parseDouble(restaurantCoordinate[1]));
-
-
-                deliveryRegister.addDelivery(new Delivery(restaurantAddress, customerAddress, data.getString("customerName"), null));
-
+                pay.addOrder(new OrderPayment(data.getInt("orderId")));
                 break;
         }
     }
 
     static {
         consumerProps.put("bootstrap.servers", "kafka-bus:9092");
-        consumerProps.put("group.id", "deliveries");
+        consumerProps.put("group.id", "payment");
         consumerProps.put("enable.auto.commit", "true");
         consumerProps.put("auto.commit.interval.ms", "1000");
         consumerProps.put("auto.offset.reset", "earliest");

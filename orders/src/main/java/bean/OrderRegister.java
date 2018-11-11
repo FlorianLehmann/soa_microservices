@@ -77,6 +77,16 @@ public class OrderRegister implements Register {
     public void saveOrder(Order order) {
         LOGGER.info("Saving " + order + " in database");
         entityManager.persist(order);
+        producer.send(new ProducerRecord<>("order", new JSONObject()
+                .put("event", "saving_order")
+                .put("data", new JSONObject()
+                        .put("orderId", order.getOrderId())
+                        .put("name", order.getName())
+                        .put("restaurant", order.getRestaurant())
+                        .put("product", order.getProduct())
+                        .put("customerLocation", order.getCustomerLocation())
+                        .put("restaurantLocation", order.getRestaurant())
+                        .put("phone", order.getPhone())).toString()));
     }
 
     @Override

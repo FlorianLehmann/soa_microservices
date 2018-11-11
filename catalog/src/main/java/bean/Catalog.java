@@ -15,6 +15,8 @@ public interface Catalog {
 
     void createMeal(Meal meal);
 
+    void saveMeal(Meal meal);
+
     List<String> listRestaurant();
 
     List<String> listCatagories();
@@ -26,6 +28,8 @@ public interface Catalog {
     List<Review> getRestaurantReview(String restaurantName);
 
     void createReview(Review review);
+
+    void saveReview(Review review);
 
     List<Review> getMealReview(String restaurantName, String mealName);
 }

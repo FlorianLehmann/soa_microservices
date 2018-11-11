@@ -1,15 +1,15 @@
 package model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Objects;
 
 @Entity
-@Table(name="meals")
-public class Meal {
-
+public class Meal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private String category;
     private String restaurant;
     private String name;
@@ -23,6 +23,14 @@ public class Meal {
     public Meal() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCategory() {
         return category;
     }
@@ -34,5 +42,4 @@ public class Meal {
     public String getName() {
         return name;
     }
-
 }

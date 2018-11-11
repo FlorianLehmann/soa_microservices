@@ -1,6 +1,7 @@
 package microservices;
 
 import model.Meal;
+import model.Review;
 
 import javax.ejb.Local;
 import javax.ws.rs.*;
@@ -13,6 +14,10 @@ public interface CatalogREST {
     @Path("/meals")
     @GET
     List<Meal> listMeals();
+
+    @Path("/meals")
+    @POST
+    void createMeal(String request);
 
 
     @Path("/restaurants")
@@ -30,7 +35,23 @@ public interface CatalogREST {
 
     @Path("/restaurants/{restaurantName}/meals")
     @GET
-    List<String> listRestaurantProducts(@PathParam("restaurantName") String restaurantName);
+    List<Meal> listRestaurantProducts(@PathParam("restaurantName") String restaurantName);
 
+    @Path("/reviews")
+    @GET
+    List<Review> listReviews();
+
+
+    @Path("/reviews/restaurants/{restaurantName}")
+    @GET
+    List<Review> getRestaurantReview(@PathParam("restaurantName") String restaurantName);
+
+    @Path("/reviews/restaurants/{restaurantName}/meals/{mealName}")
+    @GET
+    List<Review> getMealReview(@PathParam("restaurantName") String restaurantName, @PathParam("mealName") String mealName);
+
+    @Path("/reviews")
+    @POST
+    void createReview(String message);
 }
 
